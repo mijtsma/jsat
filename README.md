@@ -1,6 +1,6 @@
-# StrategiesAnalysis
+# Joint Strategy Analysis Toolkit (JSAT)
 
-StrategiesAnalysis contains two main programs for generating network graphs of work strategies - one in MATLAB and one in Python. The Python program is under ongoing development.
+JSAT contains a program for generating network graphs of work strategies for human-machine teams in Python. 
 
 ## Getting Started
 All of the required Python packages are listed in `requirements.txt`.
@@ -25,7 +25,7 @@ Dash is running on http://127.0.0.1:8050/
 ```
 Follow this link to the server the application is running on. 
 
-The visualization produced is a directed network of action and resource nodes. This application is interactive and has the following capabilities:
+The visualization produced is a directed network of function and resource nodes. This application is interactive and has the following capabilities:
 1. Toggle the visualization style between a layered, standard, and allocation-based formats
 2. Toggle the layout between the dagre, code-bilkent, and concentric positioning algorithms
 3. Drag nodes/groups to fine-tune the layout
