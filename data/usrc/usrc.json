@@ -1,0 +1,301 @@
+{
+   "GraphData": {
+      "Nodes": {
+         "Diagnose Anomalies or Abnormalilites": {
+            "Type": "DistributedWorkFunction",
+            "UserData": "Maintain eVTOL Operations within Approved Performance Envelope"
+         },
+         "Maintain Performance Authorizations": {
+            "Type": "DistributedWorkFunction",
+            "UserData": "Maintain eVTOL Operations within Approved Performance Envelope"
+         },
+         "Project degrees of freedom": {
+            "Type": "DistributedWorkFunction",
+            "UserData": ""
+         },
+         "Share Operational Intent": {
+            "Type": "DistributedWorkFunction"
+         },
+         "Monitor eVTOL Dynamics": {
+            "Type": "DistributedWorkFunction",
+            "UserData": "Dynamics wrt Vehicle Envelope & Approved Flight Envelope"
+         },
+         "Anticipate Re-Routes": {
+            "Type": "DistributedWorkFunction",
+            "UserData": "Determine ecological conditions that may turn route infeasible"
+         },
+         "Determine Secondary Destination": {
+            "Type": "DistributedWorkFunction",
+            "UserData": "New Feasible Destination feasible with objectives"
+         },
+         "Forecast Weather": {
+            "Type": "DistributedWorkFunction"
+         },
+         "Anticipate Autopilot Behavior": {
+            "Type": "DistributedWorkFunction"
+         },
+         "Determine Aircraft Priority/Criticality": {
+            "Type": "DistributedWorkFunction"
+         },
+         "Determine power consumptions": {
+            "Type": "DistributedWorkFunction"
+         },
+         "Track Notice to Airmen (NOTAM)": {
+            "Type": "DistributedWorkFunction",
+            "Desc": "Determine upcoming NOTAMs & Expired NOTAM"
+         },
+         "NOTAM": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Domain Layout": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Airspace Restrictions": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Radio Signals": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Operational Volumes": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Radar": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Feasible Fallback Route": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Vehicle specs": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Determine Power at Phases": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Weather Report at Destination": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "Weather Satellite": {
+            "Type": "BaseEnvironmentResource"
+         },
+         "VTOL Local Dynamics Telemetry": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Air Temp, Air Density, Pressure, Humidity, Wind Velocity (3d vector)"
+         },
+         "VTOL Local Environmental Telemetry": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Speed, Altitudue, Acceleration"
+         },
+         "VTOL Distal Environmental Telemetry": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Radar - location of other aircraft"            
+         },
+         "UAM Management System": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Airspace Adivsories, Weather"            
+         },
+         "UAM Telemetry System": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""            
+         },
+         "Available & Unavailable Routes": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Waypoints state, current waypoints, available waypoints"
+         },
+         "Vertiport Details": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""
+         },
+         "Track Correlation":{
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Distrubuted Analytical Correlations"
+         },
+         "VTOL Competence Envelope": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""
+         },
+         "Ground Surveillance Data" : {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""
+         },
+         "Nearby EVTOL Specs": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""
+         },
+         "Weather ITC": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": "Weather information & track correlation"
+         },
+         "Aircraft Behavior": {
+            "Type": "BaseEnvironmentResource",
+            "UserData": ""
+         },
+         "PSU Goals":{
+            "Type": "CoordinationGroundingResource",
+            "UserData": ""
+         },
+         "Passenger Type":{
+            "Type": "CoordinationGroundingResource",
+            "UserData": ""
+         },
+         "Authorization":{
+            "Type": "CoordinationGroundingResource",
+            "UserData": ""
+         }
+
+      },
+      "Edges": [
+         {
+            "Source": "Weather ITC",
+            "Target": "Forecast Weather",
+            "Weight": 1
+         },
+         {
+            "Source": "Passenger Type",
+            "Target": "Forecast Weather",
+            "Weight": 1
+         },
+         {
+            "Source": "Weather Report at Destination",
+            "Target": "Weather ITC",
+            "Weight": 1
+         },
+         {
+            "Source": "Weather Satellite",
+            "Target": "Weather ITC",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Local Environmental Telemetry",
+            "Target": "Weather ITC",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Distal Environmental Telemetry",
+            "Target": "Weather ITC",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Distal Environmental Telemetry",
+            "Target": "Aircraft Behavior",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Local Environmental Telemetry",
+            "Target": "Aircraft Behavior",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Local Dynamics Telemetry",
+            "Target": "Aircraft Behavior",
+            "Weight": 1
+         },
+         {
+            "Source": "Aircraft Behavior",
+            "Target": "Anticipate Autopilot Behavior",
+            "Weight": 1
+         },
+         {
+            "Source": "Aircraft Behavior",
+            "Target": "Monitor eVTOL Dynamics",
+            "Weight": 1
+         },
+         {
+            "Source": "NOTAM",
+            "Target": "Track Notice to Airmen (NOTAM)",
+            "Weight": 1
+         },
+         {
+            "Source": "Anticipate Autopilot Behavior",
+            "Target": "Anticipate Re-Routes",
+            "Weight": 1
+         },
+         {
+            "Source": "Track Notice to Airmen (NOTAM)",
+            "Target": "Anticipate Re-Routes",
+            "Weight": 1
+         },
+         {
+            "Source": "Domain Layout",
+            "Target": "Determine Secondary Destination",
+            "Weight": 1
+         },
+         {
+            "Source": "Airspace Restrictions",
+            "Target": "Determine Secondary Destination",
+            "Weight": 1
+         },
+         {
+            "Source": "Available & Unavailable Routes",
+            "Target": "Determine Secondary Destination",
+            "Weight": 1
+         },
+         {
+            "Source": "Determine Secondary Destination",
+            "Target": "Feasible Fallback Route",
+            "Weight": 1
+         },
+         {
+            "Source": "Aircraft Behavior",
+            "Target": "Project degrees of freedom",
+            "Weight": 1
+         },
+         {
+            "Source": "Vehicle specs",
+            "Target": "Project degrees of freedom",
+            "Weight": 1
+         },
+         {
+            "Source": "Monitor eVTOL Dynamics",
+            "Target": "Anticipate Re-Routes",
+            "Weight": 1
+         },
+         {
+            "Source": "Airspace Restrictions",
+            "Target": "Project degrees of freedom",
+            "Weight": 1
+         },
+         {
+            "Source": "Anticipate Re-Routes",
+            "Target": "Project degrees of freedom",
+            "Weight": 1
+         },
+         {
+            "Source": "Project degrees of freedom",
+            "Target": "Determine Secondary Destination",
+            "Weight": 1
+         },
+         {
+            "Source": "Authorization",
+            "Target": "Maintain Performance Authorizations",
+            "Weight": 1
+         },
+         {
+            "Source": "Aircraft Behavior",
+            "Target": "Maintain Performance Authorizations",
+            "Weight": 1
+         },
+         {
+            "Source": "Aircraft Behavior",
+            "Target": "Diagnose Anomalies or Abnormalilites",
+            "Weight": 1
+         },
+         {
+            "Source": "VTOL Competence Envelope",
+            "Target": "Diagnose Anomalies or Abnormalilites",
+            "Weight": 1
+         },
+         {
+            "Source": "Passenger Type",
+            "Target": "Diagnose Anomalies or Abnormalilites",
+            "Weight": 1
+         },
+         {
+            "Source": "Authorization",
+            "Target": "Diagnose Anomalies or Abnormalilites",
+            "Weight": 1
+         }
+         
+         
+      ]
+   }
+}

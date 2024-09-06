@@ -1,0 +1,317 @@
+{
+    "GraphData": {
+        "Nodes": {
+            "OBL": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "ObservedBatteryLevels"
+            },
+            "CIMG": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "CameraImagery"
+            },
+            "OST": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "ObservedSubsystemTemperatures"
+            },
+            "RS": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "RobotState"
+            },
+            "GL": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "GoalLocation"
+            },
+            "PP": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PathPlanned"
+            },
+            "NWP": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "NextWaypoint"
+            },
+            "OL": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "ObstacleLocations"
+            },
+            "TM": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "TerrainMap"
+            },
+            "OS": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "ObstacleSize"
+            },
+            "CA": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "CameraAngles"
+            },
+            "GR": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "GoalReached"
+            },
+            "BLM": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "BatteryLevelMonitoring"
+            },
+            "TMP": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "TempMonitoring"
+            },
+            "LAA": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "LocationAttAssessment"
+            },
+            "RPP": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "RobotPathPlanning"
+            },
+            "NWS": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "NextWaypointSelection"
+            },
+            "OLL": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ObstacleLocalization"
+            },
+            "IC": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ImageryCapture"
+            },
+            "RM": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "RobotMovement"
+            },
+            "CAM": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "CameraAngleMovement"
+            }
+        },
+        "Edges": [
+            {
+                "Source": "BLM",
+                "Target": "OBL",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "OBL",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "TMP",
+                "Target": "OST",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "CIMG",
+                "Target": "LAA",
+                "UserData": {
+                    "QOS": "1"
+                }
+            },
+            {
+                "Source": "TM",
+                "Target": "LAA",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "LAA",
+                "Target": "RS",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "OBL",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GL",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "OST",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "10"
+                }
+            },
+            {
+                "Source": "RS",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "10"
+                }
+            },
+            {
+                "Source": "OL",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "10"
+                }
+            },
+            {
+                "Source": "TM",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "OS",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": "1000000"
+                }
+            },
+            {
+                "Source": "RPP",
+                "Target": "PP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GL",
+                "Target": "NWS",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "TM",
+                "Target": "NWS",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "NWS",
+                "Target": "NWP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "CA",
+                "Target": "OLL",
+                "UserData": {
+                    "QOS": "1"
+                }
+            },
+            {
+                "Source": "OLL",
+                "Target": "OL",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "RS",
+                "Target": "IC",
+                "UserData": {
+                    "QOS": "1000001"
+                }
+            },
+            {
+                "Source": "CA",
+                "Target": "IC",
+                "UserData": {
+                    "QOS": "1000001"
+                }
+            },
+            {
+                "Source": "IC",
+                "Target": "CIMG",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GL",
+                "Target": "RM",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "NWP",
+                "Target": "RM",
+                "UserData": {
+                    "QOS": "1000000"
+                }
+            },
+            {
+                "Source": "PP",
+                "Target": "RM",
+                "UserData": {
+                    "QOS": "1000000"
+                }
+            },
+            {
+                "Source": "RM",
+                "Target": "GR",
+                "UserData": {
+                    "QOS": "10"
+                }
+            },
+            {
+                "Source": "OS",
+                "Target": "CAM",
+                "UserData": {
+                    "QOS": "1000000"
+                }
+            },
+            {
+                "Source": "RS",
+                "Target": "CAM",
+                "UserData": {
+                    "QOS": "10"
+                }
+            },
+            {
+                "Source": "CAM",
+                "Target": "CA",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PP",
+                "Target": "NWS",
+                "UserData": {
+                    "QOS": "30"
+                }
+            },
+            {
+                "Source": "CIMG",
+                "Target": "OLL",
+                "UserData": {
+                    "QOS": "0"
+                }
+            }
+        ],
+        "Agents": {
+            "Operator": {
+                "Authority": []
+            },
+            "Robot": {
+                "Authority": []
+            }
+        }
+    }
+}

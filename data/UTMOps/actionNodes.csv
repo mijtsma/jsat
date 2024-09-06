@@ -1,0 +1,51 @@
+actionName,authorizedAgent,responsibleAgent,actionAttribute
+UAV2Flight_Dynamics,UAV2defaultAgent,UAV2defaultAgent,0
+UAV1Flight_Dynamics,UAV1defaultAgent,UAV1defaultAgent,0
+Aircraft1_fly,Aircraft1defaultAgent,Aircraft1defaultAgent,0
+UAV2Land,RPICUAV2,RPICUAV2,0
+UAV2Direct_to_waypoint,RPICUAV2,RPICUAV2,0
+UAV2Manage_WP_Progress,RPICUAV2,RPICUAV2,0
+UAV1Land,RPICUAV1,RPICUAV1,0
+UAV1Direct_to_waypoint,RPICUAV1,RPICUAV1,0
+UAV1Manage_WP_Progress,RPICUAV1,RPICUAV1,0
+TestScriptContingency,TestScriptscriptAgent,TestScriptscriptAgent,0
+UTMCMCommunicate via NOTAM,UTMCMdefaultAgent,UTMCMdefaultAgent,0
+UTMCMCheck Altitudes,UTMCMdefaultAgent,UTMCMdefaultAgent,0
+UTMCMGenerate UVR,UTMCMdefaultAgent,UTMCMdefaultAgent,0
+UTMCMAssess impact,UTMCMdefaultAgent,UTMCMdefaultAgent,0
+Aircraft1deploy_gear,Aircraft1defaultAgent,Aircraft1defaultAgent,0
+Aircraft1set_airspeed,Aircraft1defaultAgent,Aircraft1defaultAgent,0
+Aircraft1set_flaps_speedbrakes,Aircraft1defaultAgent,Aircraft1defaultAgent,0
+Aircraft1updateaircraftdata,Aircraft1defaultAgent,Aircraft1defaultAgent,0
+UAV2final_Sys_Check,UAV2defaultAgent,UAV2defaultAgent,0
+UAV2preflight_Sys_Check,UAV2defaultAgent,UAV2defaultAgent,0
+UAV2Distance_to_next_WP,RPICUAV2,RPICUAV2,0
+UAV2Track_flight,RPICUAV2,RPICUAV2,0
+UAV2Takeoff,RPICUAV2,RPICUAV2,0
+UAV2Stabalize_vehicle,RPICUAV2,RPICUAV2,0
+UAV2Reroute_flight,RPICUAV2,RPICUAV2,0
+UAV2Show_radar,RPICUAV2,RPICUAV2,0
+UAV2Monitor_system_integrity,RPICUAV2,RPICUAV2,0
+UAV2Detect_conflict,RPICUAV2,RPICUAV2,0
+UAV2Cross_check,RPICUAV2,RPICUAV2,0
+UAV2Change_speed,RPICUAV2,RPICUAV2,0
+UAV2Change_heading,RPICUAV2,RPICUAV2,0
+UAV2Change_altitude,RPICUAV2,RPICUAV2,0
+UAV2Avoid_safety_hazard,RPICUAV2,RPICUAV2,0
+UAV2Avoid_conflict,RPICUAV2,RPICUAV2,0
+UAV1final_Sys_Check,UAV1defaultAgent,UAV1defaultAgent,0
+UAV1preflight_Sys_Check,UAV1defaultAgent,UAV1defaultAgent,0
+UAV1Distance_to_next_WP,RPICUAV1,RPICUAV1,0
+UAV1Track_flight,RPICUAV1,RPICUAV1,0
+UAV1Takeoff,RPICUAV1,RPICUAV1,0
+UAV1Stabalize_vehicle,RPICUAV1,RPICUAV1,0
+UAV1Reroute_flight,RPICUAV1,RPICUAV1,0
+UAV1Show_radar,RPICUAV1,RPICUAV1,0
+UAV1Monitor_system_integrity,RPICUAV1,RPICUAV1,0
+UAV1Detect_conflict,RPICUAV1,RPICUAV1,0
+UAV1Cross_check,RPICUAV1,RPICUAV1,0
+UAV1Change_speed,RPICUAV1,RPICUAV1,0
+UAV1Change_heading,RPICUAV1,RPICUAV1,0
+UAV1Change_altitude,RPICUAV1,RPICUAV1,0
+UAV1Avoid_safety_hazard,RPICUAV1,RPICUAV1,0
+UAV1Avoid_conflict,RPICUAV1,RPICUAV1,0

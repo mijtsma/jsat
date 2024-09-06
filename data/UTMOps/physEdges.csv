@@ -1,0 +1,3 @@
+actionName,resourceName,type,priority
+UAV1Takeoff,UAV1Dock,use,0
+UAV2Takeoff,UAV2Dock,use,0
