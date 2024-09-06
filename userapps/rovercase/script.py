@@ -23,27 +23,10 @@ data_sets: list[str] = [
     "Run4",
     # "Run5",
     # "Run6"#,
-    # "Run7",
-    # "Run8"#,
-    # "Run9",
-    # "Run10",
-    # "Run11",
-    # "Run12",
-    # "Run13",
-    # "Run14",
-    # "Run15",
-    # "Run16",
-    # "RunML",
 ]
 
 
 # Define a dictionary with edges as keys and lists of QOS values as values
-# edge_qos_values = {
-#     # ("PP", "NWS"): [30, 31, 42, 43],
-#     ("PP", "NWS"): [10, 15, 20, 25, 30, 31, 42, 43],
-#     # ("PP", "NWS"): [0, 10, 15, 20],
-#     ("Confirmation-BLM", "BLM"): [0, 20, 30, 40]
-# }
 edge_qos_values = {
     # "PP_NWS": [30, 31, 42, 43],
     # ("PP", "NWS"): [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 130, 150, 180, 210, 240, 270],
@@ -294,24 +277,6 @@ for node_id in main_net.get_node_ids():
 # First want to find edges that need updating based on when resources were last updated.
 current_time = 32 #Needs something different here
 
-# Manually change when resources were last updated
-# Strategy for NWS without updating PP
-# main_net.get_node("PP").user_data.last_update_time = current_time
-
-# Strategy without cross-checking
-# main_net.get_node("Confirmation-NWS").user_data.last_update_time = current_time
-# main_net.get_node("Confirmation-BLM").user_data.last_update_time = current_time
-# main_net.get_node("Confirmation-TMP").user_data.last_update_time = current_time
-# main_net.get_node("Confirmation-RPP").user_data.last_update_time = current_time
-
-# Strategy without obstacle location
-# main_net.get_node("OL").user_data.last_update_time = current_time
-
-# Strategy without battery level and temperature measurement
-# main_net.get_node("OST").user_data.last_update_time = current_time
-# main_net.get_node("OBL").user_data.last_update_time = current_time
-
-
 out_of_bound_edges = []
 
 # Identify which edges are out of QOS bound
@@ -392,22 +357,9 @@ l.visualize(main_net, "tikzout3.tex")
 '''
 app = CytoscapeApp(data_dict, RoverDataHandler)
 # app = CytoscapeApp(data_dict, RoverDataHandler, connecting_edges)
+# Type in the edges you wish to highlight in format ("node1", "node2") as seen in examples below
 # Strategy without updating PP for NWS
 # app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("Confirmation-NWS", "NWS"), ("NWS", "NWP"), ("NWP", "Confirming-NWS"), ("Confirming-NWS", "Confirmation-NWS"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM")])
-# Strategy without upating battery level and temperature measurements
-#app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("Confirmation-NWS", "NWS"), ("NWS", "NWP"), ("NWP", "Confirming-NWS"), ("Confirming-NWS", "Confirmation-NWS"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM"),
-#("TM", "LAA"), ("CIMG", "LAA"), ("LAA", "RS"), ("RS", "CAM"), ("CIMG", "Confirming-IC"), ("Confirming-IC", "IC"), ("OS", "CAM"), ("CAM","CA"),("CA","IC"),("CA","OLL"),
-#                                                 ("CIMG","OLL"), ("OLL", "OL"), ("OL", "RPP"),("RS","RPP"),("RS","IC"),("Confirming-IC","Confirmation-IC"),("OS","RPP"),("TM","RPP"),("GL","RPP"),("RPP","PP"),
-#                                                 ("IC","CIMG"),("Confirmation-IC","IC"),("OST","RPP"),("OBL","RPP"),("PP","Confirming-RPP"),("Confirming-RPP","Confirmation-RPP"),("Confirmation-RPP","RPP")])
-# Strategy with confirmations
-# app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("NWS", "NWP"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM"),("TM", "LAA"), ("CIMG", "LAA"), ("LAA", "RS"), ("RS", "CAM"), ("OS", "CAM"), ("CAM","CA"),("CA","IC"),("CA","OLL"),
-#                                                  ("CIMG","OLL"), ("OLL", "OL"), ("OL", "RPP"),("RS","RPP"),("RS","IC"),("OS","RPP"),("TM","RPP"),("GL","RPP"),("RPP","PP"),("IC","CIMG"),("OST","RPP"),("OBL","RPP"),("TMP","OST"),("BLM","OBL")])
-# # Strategy with OL
-# app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("NWS", "NWP"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM"),("TM", "LAA"), ("CIMG", "LAA"), ("LAA", "RS"), ("CA","IC"),
-#                                                 ("OL", "RPP"),("RS","RPP"),("RS","IC"),("OS","RPP"),("TM","RPP"),("GL","RPP"),("RPP","PP"),("IC","CIMG"),("OST","RPP"),("OBL","RPP"),("TMP","OST"),("BLM","OBL"),
-#                                                 ("Confirmation-NWS", "NWS"),("NWP", "Confirming-NWS"),("Confirming-NWS", "Confirmation-NWS"),("CIMG", "Confirming-IC"),("Confirming-IC", "IC"),("Confirming-IC","Confirmation-IC"),("Confirmation-IC","IC"),("PP","Confirming-RPP"),("Confirming-RPP","Confirmation-RPP"),("Confirmation-RPP","RPP"),
-#                                                 ("OBL","Confirming-BLM"),("Confirming-BLM","Confirmation-BLM"),("Confirmation-BLM","BLM"),("OST","Confirming-TMP"),("Confirming-TMP","Confirmation-TMP"),
-#                                                 ("Confirmation-TMP","TMP")])
 # Fully highlighted
 # app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("NWS", "NWP"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM"),("TM", "LAA"), ("CIMG", "LAA"), ("LAA", "RS"), ("RS", "CAM"), ("OS", "CAM"), ("CAM","CA"),("CA","IC"),("CA","OLL"),
 #                                                    ("CIMG","OLL"), ("OLL", "OL"), ("OL", "RPP"),("RS","RPP"),("RS","IC"),("OS","RPP"),("TM","RPP"),("GL","RPP"),("RPP","PP"),("IC","CIMG"),("OST","RPP"),("OBL","RPP"),("TMP","OST"),("BLM","OBL"),
