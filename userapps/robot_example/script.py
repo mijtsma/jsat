@@ -23,12 +23,7 @@ data_sets: list[str] = [
 
 # Define a dictionary with edges as keys and lists of QOS values as values
 edge_qos_values = {
-    # "PP_NWS": [30, 31, 42, 43],
-    # ("PP", "NWS"): [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 130, 150, 180, 210, 240, 270],
     ("PP", "NWS"): [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
-    # ("PP", "NWS"): [1, 2, 3, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 120, 140, 160, 200, 240, 320],
-    # ("Confirmation-BLM", "BLM"): [0, 20, 30, 40, 50, 60, 80]
-    # ("confirmation", ""): [0]
     ("confirmation", ""): [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 }
 
@@ -89,60 +84,40 @@ operator.add_action(main_net.get_node("IC"), operator.allocation_types.Responsib
 operator.add_action(main_net.get_node("RM"), operator.allocation_types.Responsibility) # Remove this function?
 
 
-# # Identify the shared resources
-# shared_resources = []
-
-# # Loop over all nodes in the graph
-# for node_id in main_net.get_graph().nodes():
-    
-#     node = main_net.get_node(node_id)
-    
-#     # Check if BaseEnvironmentResource
-#     if issubclass (node.__class__, nd.BaseEnvironmentResource):
-
-#         # Get all neighboring nodes (actionNodes)
-#         functions_that_set = main_net.get_graph().predecessors(node_id)
-#         functions_that_get = main_net.get_graph().successors(node_id)
-
-#         # A list of all function pairs that are connected through this resources
-#         interdependent_functions = list(itertools.product(functions_that_get,functions_that_set))
-
-#         # For each pair, check whether roles is the same
-#         for pair in interdependent_functions:
-#             agent_setting = main_net.get_node(pair[0]).get_authorized_agent()
-#             agent_getting = main_net.get_node(pair[1]).get_authorized_agent()
-
-#             if agent_setting.id != agent_getting.id:
-#                 shared_resources.append((node_id,pair))
-
-
-# # For each of the shared resources, do something!
-# # Current rule: When an information resource is shared between agents at the taskwork level, 
-# # then a function must be created at the teamwork level to show the relaying of information, 
-# # such that a shared awareness is formed at the social organizational level. 
-# for element in shared_resources:
-
-#     # print("There is a shared resource",element[0],"between ", element[1][0], "and", element[1][1])
-
-#     # Create a shared resources node and a teamwork function node
-#     soc_org_node = main_net.add_node(nd.Node("shared_"+element[0])) # TODO: Specify the node type/class
-#     teamwork_node = main_net.add_node(nd.ActionNode("sharing_"+element[0]))
-
-#     # Add edge going from teamwork node to shared_resource node
-#     main_net.add_edge("sharing_"+element[0],"shared_"+element[0])
-
-#     # Add edge going from original resource to the teamwork node
-#     main_net.add_edge(element[0],"sharing_"+element[0])
-
-#     # Add QOS to each edge (making an assumption that this needs to updated always but can change!)
-#     user_data = lambda: None
-#     user_data.QOS = 0
-#     # main_net.get_edge("sharing_"+element[0],"shared_"+element[0]).user_data = user_data # No QOS needed--because is set relationship
-#     main_net.get_edge(element[0],"sharing_"+element[0]).user_data = user_data
-
+# You can identify what resources are shared between agents as a way to identify interdependencies between agents that require some form of information exchange and/or coordination.
 
 # Identify the shared resources
-shared_actions = []
+shared_resources = []
+
+# Loop over all nodes in the graph
+for node_id in main_net.get_graph().nodes():
+    
+    node = main_net.get_node(node_id)
+    
+    # Check if BaseEnvironmentResource
+    if issubclass (node.__class__, nd.BaseEnvironmentResource):
+
+        # Get all neighboring nodes (actionNodes)
+        functions_that_set = main_net.get_graph().predecessors(node_id)
+        functions_that_get = main_net.get_graph().successors(node_id)
+
+        # A list of all function pairs that are connected through this resources
+        interdependent_functions = list(itertools.product(functions_that_get,functions_that_set))
+
+        # For each pair, check whether roles is the same
+        for pair in interdependent_functions:
+            agent_setting = main_net.get_node(pair[0]).get_authorized_agent()
+            agent_getting = main_net.get_node(pair[1]).get_authorized_agent()
+
+            if agent_setting.id != agent_getting.id:
+                shared_resources.append((node_id,pair))
+
+
+
+
+# One can also identify where there are mismatches in which agent is authorized to perform an action (i.e., is executing the work) and the agent who is responsible (i.e., accountable for the outcome, in a legal or organizational sense). Mismatches have implications for coordination overhead, as responsible agents need to be able to supervise and manage authorized agents.
+# Identify the actions with authority-responsibility mismatches
+actions_w_auth_resp_mismatch = []
 
 # Loop over all nodes in the graph
 for node_id in main_net.get_graph().nodes():
@@ -158,12 +133,12 @@ for node_id in main_net.get_graph().nodes():
 
         # For each pair, check whether roles is the same
         if authorized_agent != operator:
-            shared_actions.append(node_id)
+            actions_w_auth_resp_mismatch.append(node_id)
 
-# For each of the shared action, do something!
+# For each action with an authority-responsibility mismatch, do something!
 # Current rule: When authority-responsibility mismatch, create a confirmation resources and an a confirmation
 # action that is allocated to the operator
-for node_id in shared_actions:
+for node_id in actions_w_auth_resp_mismatch:
 
     if node_id == "RM":
         continue
