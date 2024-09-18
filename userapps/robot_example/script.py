@@ -12,17 +12,12 @@ from core.visualization.tikzlayer import LayeredTikzVisualizer as l
 
 ''' The folder containing the JSON data.
 '''
-directory: str = "data/NSFCareerProj/RevisedWMC/"
+directory: str = "data/"
 
 ''' The JSON files in the given folder
 '''
 data_sets: list[str] = [
-    # "Run1",
-    # "Run2",
-    # "Run3",
-    "Run4",
-    # "Run5",
-    # "Run6"#,
+    "robot_example",
 ]
 
 
