@@ -20,13 +20,6 @@ data_sets: list[str] = [
     "robot_example",
 ]
 
-
-# Define a dictionary with edges as keys and lists of QOS values as values
-edge_qos_values = {
-    ("PP", "NWS"): [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
-    ("confirmation", ""): [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-}
-
 # Class for user data
 class UserData:
     def __init__(self, QOS=1000000):  # Default value set to 1000000
@@ -56,7 +49,7 @@ for name in data_sets:
     data_dict[name] = JSONParser.parse(directory + name + ".json", e_user_data_func = custom_user_parse)
 
 # Main network
-main_net = data_dict["Run4"]
+main_net = data_dict["robot_example"]
 
 # Define roles for both human and operator (is there a way to do this through the JSON?)
 operator: nd.Agent = nd.Agent("Operator")
@@ -189,9 +182,10 @@ l.visualize(main_net, "tikzout3.tex")
 ''' Alter networks after they have been read 
     from JSON.
 '''
+# This will generate the graph without a highlighted strategy, comment this out if you use on the highlighted strategies below
 app = CytoscapeApp(data_dict, RoverDataHandler)
 # Type in the edges you wish to highlight in format ("node1", "node2") as seen in examples below
-# Examples of highlighting the graph to show the strategy being employed, uncomment the one you wish to visualize
+# Included are two different examples of highlighted strategies, uncomment the one you wish to visualize
 # Strategy without updating PP for NWS
 # app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("Confirmation-NWS", "NWS"), ("NWS", "NWP"), ("NWP", "Confirming-NWS"), ("Confirming-NWS", "Confirmation-NWS"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM")])
 # Fully highlighted
