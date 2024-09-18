@@ -84,7 +84,8 @@ operator.add_action(main_net.get_node("IC"), operator.allocation_types.Responsib
 operator.add_action(main_net.get_node("RM"), operator.allocation_types.Responsibility) # Remove this function?
 
 
-# You can identify what resources are shared between agents as a way to identify interdependencies between agents that require some form of information exchange and/or coordination.
+# You can identify what resources are shared between agents as a way to identify interdependencies between agents that
+# require some form of information exchange and/or coordination.
 
 # Identify the shared resources
 shared_resources = []
@@ -97,7 +98,7 @@ for node_id in main_net.get_graph().nodes():
     # Check if BaseEnvironmentResource
     if issubclass (node.__class__, nd.BaseEnvironmentResource):
 
-        # Get all neighboring nodes (actionNodes)
+        # Get all neighboring nodes (Function Nodes)
         functions_that_set = main_net.get_graph().predecessors(node_id)
         functions_that_get = main_net.get_graph().successors(node_id)
 
@@ -112,12 +113,12 @@ for node_id in main_net.get_graph().nodes():
             if agent_setting.id != agent_getting.id:
                 shared_resources.append((node_id,pair))
 
-
-
-
-# One can also identify where there are mismatches in which agent is authorized to perform an action (i.e., is executing the work) and the agent who is responsible (i.e., accountable for the outcome, in a legal or organizational sense). Mismatches have implications for coordination overhead, as responsible agents need to be able to supervise and manage authorized agents.
-# Identify the actions with authority-responsibility mismatches
-actions_w_auth_resp_mismatch = []
+# One can also identify where there are mismatches in which agent is authorized to perform a function
+# (i.e., is executing the work) and the agent who is responsible (i.e., accountable for the outcome, in a legal or
+# organizational sense). Mismatches have implications for coordination overhead, as responsible agents need to be able
+# to supervise and manage authorized agents.
+# Identify the functions with authority-responsibility mismatches
+functions_w_auth_resp_mismatch = []
 
 # Loop over all nodes in the graph
 for node_id in main_net.get_graph().nodes():
@@ -133,12 +134,12 @@ for node_id in main_net.get_graph().nodes():
 
         # For each pair, check whether roles is the same
         if authorized_agent != operator:
-            actions_w_auth_resp_mismatch.append(node_id)
+            functions_w_auth_resp_mismatch.append(node_id)
 
-# For each action with an authority-responsibility mismatch, do something!
-# Current rule: When authority-responsibility mismatch, create a confirmation resources and an a confirmation
-# action that is allocated to the operator
-for node_id in actions_w_auth_resp_mismatch:
+# For each function with an authority-responsibility mismatch, do something!
+# Current rule: When authority-responsibility mismatch, create a confirmation resources and a confirmation
+# function that is allocated to the operator
+for node_id in functions_w_auth_resp_mismatch:
 
     if node_id == "RM":
         continue
