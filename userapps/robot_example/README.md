@@ -77,7 +77,8 @@ data_sets: list[str] = [
 - In “data_sets” you can list multiple json data files if you want to be able to run different configurations easily, just ensure that one json folder is uncommented, in our case “Run4”
 - 
 
-''' # Main network
-''' main_net = data_dict["robot_example"]
+``` Python
+# Main network
+main_net = data_dict["robot_example"]
 ```
 
