@@ -82,7 +82,44 @@ main_net = data_dict["robot_example"]
 ```
 
 - Ensure that the main network is set to the correct network you created in the json file, in this case we are using the provided "robot example"
-- 
+- Critical to our modeling is how giving authority to machine/robotic agents gives rise to the need to coordinate, which takes the form of synchrony functions in order to maintain common ground with responsible agents (humans) 
+
+``` Python
+# Define roles for both human and operator
+operator: nd.Agent = nd.Agent("Operator")
+rover: nd.Agent = nd.Agent("Robot")
+```
+Below we assign roles to the operator and robot agents that we defined above
+
+``` Python
+operator.add_action(main_net.get_node("LAA"), operator.allocation_types.Authority)
+operator.add_action(main_net.get_node("OLL"), operator.allocation_types.Authority)
+```
+In this case, the operator is given the "LAA" and "OLL" functions to perform
+
+``` Python
+rover.add_action(main_net.get_node("BLM"), rover.allocation_types.Authority)
+rover.add_action(main_net.get_node("TMP"), rover.allocation_types.Authority)
+```
+In this example, we have given the robot the functions "BLM" and "TMP" to perform, these functions are assumed to now be automated in the system
+
+- For this example model, we have not included the possiblity of more than one agent sharing a function to perform, we assume that the opeator and robot perform their respective functions
+- We now need to define who has responsibility over the functions in a network, as a mismatch in authority-responsibility will create the need for agents to coordinate, so that common ground is maintained with the responsible agent for that function. Here, we assume the human operator is responsible for all functions performed by the automated robotic agent
+
+``` Python
+operator.add_action(main_net.get_node("BLM"), operator.allocation_types.Responsibility)
+operator.add_action(main_net.get_node("TMP"), operator.allocation_types.Responsibility)
+```
+Above is an example of the human operator being given responsibility over the two example functions that the robot has been assigned authority to perform. All functions must be given authority to some agent to perform, and all functions must be assigned to an agent responsible for them. When there is a mismatch in authority-responsibility, then a synchrony function must be created to maintain common ground. This mismatch will automatically generate a synchrony function with the code. 
+
+The list of functions with mismatches is stored in:
+
+``` Python
+# Identify the functions with authority-responsibility mismatches
+functions_w_auth_resp_mismatch = []
+```
+
+The last part of the script file generates the visualization of the network. 
 
 
 
