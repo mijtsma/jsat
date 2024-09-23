@@ -119,7 +119,24 @@ The list of functions with mismatches is stored in:
 functions_w_auth_resp_mismatch = []
 ```
 
-The last part of the script file generates the visualization of the network. 
+The last part of the script file generates the visualization of the network. For some of our work, we want to see a strategy, or the path through the directed gaph from one node to another (goal) noed. Let's say we want to see the paths that one may take to reach our goal: Goal Location (GL). We have included code to highlight edges of the graph to show a strategy. 
+
+``` Python
+Strategy without updating PP for NWS
+app = CytoscapeApp(data_dict, RoverDataHandler, [("GL", "RM"),("GL", "NWS"),("TM", "NWS"), ("Confirmation-NWS", "NWS"), ("NWS", "NWP"), ("NWP", "Confirming-NWS"), ("Confirming-NWS", "Confirmation-NWS"), ("NWP", "RM"), ("PP", "NWS"), ("PP", "RM")])
+```
+
+In the above code, we are highlighting a subsection of the graph to reflect a strategy forr moving towards Goal Location (GL) without needing to update the Planned Path (PP) for Next Waypoint Selection (NWS). We can assume that there will be instances when the Planned Path does not need to be updated if it was recently created and still relevant. Therefore, a strategy would be to not have to update PP and the other functions associated with bringing it about. So, this code shows the subsection of the graph that needs to be performed when this information (QOS) is still relevant. To highlight an edge, simply type in the starting and ending node in the form ("node1", "node2") as seen above. 
+
+``` Python
+This will generate the graph without a highlighted strategy, comment this out if you use on the highlighted strategies below
+app = CytoscapeApp(data_dict, RoverDataHandler)
+```
+
+With this code uncommented, the grpah will generate without a highglighted strategy. 
+
+
+
 
 
 
