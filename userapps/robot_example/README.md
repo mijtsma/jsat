@@ -75,10 +75,18 @@ data_sets: list[str] = [
  
 - First make sure that the directory is set to the folder where your data is located, in this case it is the folder we previously discussed “RevisedWMC” where are json files are located
 - In “data_sets” you can list multiple json data files if you want to be able to run different configurations easily, just ensure that one json folder is uncommented, in our case “Run4”
-- 
 
 ``` Python
 # Main network
 main_net = data_dict["robot_example"]
 ```
+
+- Ensure that the main network is set to the correct network you created in the json file, in this case we are using the provided "robot example"
+- 
+
+
+
+
+
+
 
