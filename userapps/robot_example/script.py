@@ -2,7 +2,7 @@ from core import networkdata as nd
 from core.parsing.jsonparser import JSONParser
 from core.parsing.jsonencoder import JSONEncoder
 from cytoapp.cytoscapeapp import CytoscapeApp
-from userapps.rovercase.roverdatahandler import RoverDataHandler
+from roverdatahandler import RoverDataHandler
 import itertools
 import copy
 import webbrowser
