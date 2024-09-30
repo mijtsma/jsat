@@ -3,6 +3,17 @@
 JSAT contains a program for generating network graphs of work strategies for human-machine teams in Python. 
 
 ## Getting Started
+
+Simply clone this repository and work in your favorite IDE. If using this toolkit to conduct your own analyses, we suggest adding this repository as a git submodule to your own repository.
+
+```
+cd <your target folder>
+git init
+git submodule add https://github.com/mijtsma/jsat.git libs/jsat
+```
+
+You can then copy the ``data`` folder and the script file of your choice (such as ``userapps/COPYME/script.py``) from ``libs/jsat`` to your main directory, and you have your own repository.
+
 All of the required Python packages are listed in `requirements.txt`.
 
 To install the required packages:
@@ -10,12 +21,12 @@ To install the required packages:
 pip install -r requirements.txt
 ```
 
-You also need to add the project directory to your PYTHONPATH. This can be done manually as seen [here](https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html). Most IDEs should also support project-based PYTHONPATH additions through environments or launch configurations, which is a good practice if you wish to keep PYTHONPATH uncluttered.
+You also need to add the project directory or submodule directory to your PYTHONPATH. This can be done manually as seen [here](https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html). Most IDEs should also support project-based PYTHONPATH additions through environments or launch configurations, which is a good practice if you wish to keep PYTHONPATH uncluttered.
 
 ## Usage
 
 ### Running Example Python Script
-An example project script can be found at `cytoapp/script.py`. This script demonstrates examples of the various core modules in action.
+A simple example project script can be found at `cytoapp/script.py`. This script demonstrates examples of the various core modules in action.
 
 This script also creates a visualization which runs on a web application powered by Dash. The files responsible for this app include `cytoapp/cytoscapeapp.py`, which runs the app, and `cytoapp/datahandler.py`, which keeps track of the network models.
 
@@ -34,6 +45,8 @@ The visualization produced is a directed network of function and resource nodes.
 
 ### Creating User Projects
 User projects are stored in the `userapps` directory. To get started, copy and rename `userapps/COPYME` to your name. This will be your personal directory, where you can create any projects you would like. An example `script.py` is provided for convenience. Note that because of the way Python handles directories, you will need a file named `__init__.py` in any sub-directory you create.
+
+An elaborate example of a user project can be found at `userapps/robot_example/script.py`. A tutorial for this example can be found at `userapps/robot_example/README.md`.
 
 ### Data Files
 Network information is stored in JSON data files, located in `data/JSON`. Standards for this format are located in `JSONStandards.txt`.
@@ -58,10 +71,11 @@ We believe that this inspection might be automated by modifying the program to s
 
 ## Authors
 
+Cadence Hagenauer   hagenauer.1@osu.edu
+
 Dr. Martijn IJtsma  ijtsma.1@osu.edu
 
 Katie Albert    albert.224@osu.edu
 
 James Bartman   jbartman47@berkeley.edu
 
-Cadence Hagenauer   hagenauer.1@osu.edu
