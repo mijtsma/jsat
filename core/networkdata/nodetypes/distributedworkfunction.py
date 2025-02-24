@@ -12,6 +12,8 @@ class DistributedWorkFunction(ActionNode):
         self, 
         id: str,  
         user_data = None,
-        allocation_types: IntEnum = DefaultAllocation
+        allocation_types: IntEnum = DefaultAllocation,
+        precedence: int = 0 # Default precedence value
     ):
         super().__init__(id, user_data, allocation_types)
+        self.precedence = precedence  # Store precedence attribute

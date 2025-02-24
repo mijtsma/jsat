@@ -156,22 +156,3 @@ With this code uncommented, the graph will generate without a highglighted strat
 
 To see the interactive dashboard, simply run the script file to generate the network and view the dashboard of what you created! When running, Python should automatically open your default web browser with the dashboard. If it does not open a browser, simply open your browser manually and visit this IP-address: ``http://127.0.0.1:8050``
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

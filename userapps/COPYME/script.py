@@ -77,8 +77,3 @@ app.run()
     Feel free to use existing core or cytoapp code as a template for your own
     apps if you really want to get into the customization.
 '''
-
-    
-
-
-
