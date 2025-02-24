@@ -1,3 +1,5 @@
+#### Archived because it just provides the basic functionality/logic needed for StrategyFinder.py
+
 import networkx as nx
 import matplotlib.pyplot as plt
 import itertools
