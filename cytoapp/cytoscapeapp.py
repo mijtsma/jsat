@@ -40,7 +40,7 @@ class CytoscapeApp:
     def run(self):
         ''' Launches self.app, a dash app
         '''
-        self.app.run_server(debug=False)
+        self.app.run(debug=False)
 
     def __add_callbacks(self):
         ''' Adds dash callbacks to self.app
