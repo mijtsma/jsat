@@ -144,7 +144,7 @@ class DataHandler:
         }
 
     def __calculate_stats(self):
-        ''' Calculates varoious stats about self.model for use in the app.
+        ''' Calculates various stats about self.model for use in the app.
         '''
         self.d_centrality = BasicStats.degree_centrality(self.model)
         self.e_centrality = BasicStats.eigenvector_centrality(self.model)
