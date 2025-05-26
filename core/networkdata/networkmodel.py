@@ -2,7 +2,7 @@ import networkx as nx
 from typing import Tuple, Dict
 
 from core.networkdata import Agent
-from core.networkdata.generalstorage import Node, Agent, ActionNode, EdgeData
+from core.networkdata.generalstorage import Node, Agent, ActionNode, ResourceNode, EdgeData
 from core.utils.defaultutils import DefaultUtils
 
 class NetworkModel:
@@ -150,4 +150,22 @@ class NetworkModel:
             the edges in the graph.
         '''
         return self.__graph.edges
+    
+    def reverse(self) -> 'NetworkModel':
+        ''' Reverses the direction of all edges in the graph.
+        '''
+        self.__graph = self.__graph.reverse(copy=False)
+        return self
 
+    def project_to_nodes(self, node_type: type[Node]) -> 'NetworkModel':
+        ''' Projects the graph onto only nodes of the specified type, removing all other nodes.
+        '''
+        node_ids = {node_id for node_id in self.get_node_ids() if isinstance(self.get_node(node_id), node_type)}
+        projected_graph = nx.algorithms.bipartite.projected_graph(self.__graph, node_ids)
+        projected_model = NetworkModel()
+        projected_model.__graph = projected_graph
+        for node_id in node_ids:
+            projected_model.add_node(self.get_node(node_id))
+        for agent_id, agent in self.agents.items():
+            projected_model.add_agent(agent)
+        return projected_model
