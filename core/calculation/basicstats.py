@@ -39,6 +39,22 @@ class BasicStats:
         return nx.degree_centrality(model.get_graph())
 
     @staticmethod
+    def in_degree_centrality(model: nd.NetworkModel) -> dict[str, float]:
+        ''' Calculates the degree centrality of all nodes in the graph
+            and returns a dictionary from node ids to centrality values
+            between 0 and 1 (provided no multigraphs or self-loops).
+        '''
+        return nx.in_degree_centrality(model.get_graph())
+
+    @staticmethod
+    def out_degree_centrality(model: nd.NetworkModel) -> dict[str, float]:
+        ''' Calculates the degree centrality of all nodes in the graph
+            and returns a dictionary from node ids to centrality values
+            between 0 and 1 (provided no multigraphs or self-loops).
+        '''
+        return nx.out_degree_centrality(model.get_graph())
+
+    @staticmethod
     def eigenvector_centrality(
         model: nd.NetworkModel,
         iterations: int = EIGENVECTOR_DEFAULT_MAX_ITER,
