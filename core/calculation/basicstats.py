@@ -142,7 +142,31 @@ class BasicStats:
             model.get_graph(), 
             result
         )
-
+    
+    @staticmethod
+    def number_of_functions_per_agent(model: nd.NetworkModel, alloc_type) -> list[frozenset[str]]:
+        ''' Finds the number of functions that each agent is assigned
+        '''
+        communities: dict[str, list[str]] = {}
+        for agent_id in model.agents:
+            communities[agent_id] = []
+        non_assigned_functions: list[str] = []
+        non_functions: list[str] = []
+        for node_id in model.get_node_ids():
+            node = model.get_node(node_id)
+            if (not isinstance(node, nd.ActionNode)):
+                non_functions.append(node_id)
+                continue
+            if(alloc_type not in node.agents or 
+            len(node.agents[alloc_type]) == 0):
+                non_assigned_functions.append(node_id)
+                continue
+            for agent_id in node.agents[alloc_type]:
+                communities[agent_id].append(node_id)
+        community_sizes = {agent_id: len(community) for agent_id, community in communities.items()}
+        community_sizes["Non-allocated functions"] = len(non_assigned_functions)
+        community_sizes["Non-functions"] = len(non_functions)
+        return community_sizes
 
 
     
