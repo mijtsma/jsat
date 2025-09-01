@@ -32,6 +32,8 @@ class LayoutSettings:
             case 'concentric':
                 result['minNodeSpacing'] = str(int(factor))
                 result['spacingFactor'] = str(factor)
+            case 'preset':
+                result['spacingFactor'] = str(factor)
         return result
 
     @staticmethod
@@ -66,12 +68,83 @@ class LayoutSettings:
             'animate': True,
             'fit': True,
             'spacingFactor': 0.57,
-            'concentric': lambda node: node.data('degree'),  # Assumes nodes have a 'degree' attribute
+            # 'concentric': lambda node: node.data('degree'),  # Assumes nodes have a 'degree' attribute
         }
 
+    @staticmethod
+    def preset_layout():
+        return {
+            'name': 'preset',
+            'nodeDimensionsIncludeLabels': 'true'
+            # 'animate': True,
+            # "animationDuration": 5,
+            # 'fit': True,
+        }
+    
+    @staticmethod
+    def grid_layout():
+        return {
+            'name': 'grid',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
+    @staticmethod
+    def cola_layout():
+        return {
+            'name': 'cola',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
+    @staticmethod
+    def klay_layout():
+        return {
+            'name': 'klay',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
+    @staticmethod
+    def spread_layout():
+        return {
+            'name': 'spread',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
+    @staticmethod
+    def euler_layout():
+        return {
+            'name': 'euler',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
+    @staticmethod
+    def breadthfirst_layout():
+        return {
+            'name': 'breadthfirst',
+            'nodeDimensionsIncludeLabels': 'true',
+            'animate': True,
+            'fit': True
+        }
+    
     __func_map: dict[str: Callable[[], dict[str:str]]] = {
             'dagre': dagre_layout,
             'cose-bilkent': cose_bilkent_layout,
-            'concentric': concentric_layout
+            'concentric': concentric_layout,
+            'preset': preset_layout,
+            'grid': grid_layout,
+            'cola': cola_layout,
+            'klay': klay_layout,
+            'spread': spread_layout,
+            'euler': euler_layout,
+            'breadthfirst': breadthfirst_layout
     }
     
