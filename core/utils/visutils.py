@@ -19,6 +19,8 @@ class VisualizationUtils:
             element['data'] = {}
         element['data']['id'] = vis_id + node.id
         element['data']['label']  = node.id
+        if hasattr(node.user_data, 'position'):
+            element['position'] = node.user_data.position
         if issubclass (node.__class__, nd.ActionNode):
             element['classes'] = 'action'
         else:
