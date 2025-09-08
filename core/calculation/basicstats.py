@@ -3,6 +3,7 @@ from typing import Tuple, Type
 
 import core.networkdata as nd
 from .eagle import EagleModularity
+import itertools
 
 class BasicStats:
     ''' A class for calculating various simple statistics of a NetworkModel.
@@ -185,4 +186,35 @@ class BasicStats:
         return community_sizes
 
 
+    @staticmethod
+    def find_shared_resources(model: nd.NetworkModel) -> list[tuple[str, tuple[str, str], tuple[str, str]]]:
+        ''' Finds the shared resources in the given NetworkModel.
+        '''
     
+        # Identify the shared resources
+        shared_resources = []
+
+        # Loop over all nodes in the graph
+        for node_id in model.get_node_ids():
+            
+            node = model.get_node(node_id)
+            
+            # Check if BaseEnvironmentResource
+            if issubclass (node.__class__, nd.BaseEnvironmentResource):
+
+                # Get all neighboring nodes (Function Nodes)
+                functions_that_set = model.get_graph().predecessors(node_id)
+                functions_that_get = model.get_graph().successors(node_id)
+
+                # A list of all function pairs that are connected through this resources
+                interdependent_functions = list(itertools.product(functions_that_get,functions_that_set))
+
+                # For each pair, check whether roles is the same
+                for pair in interdependent_functions:
+                    agent_setting = model.get_node(pair[0]).get_authorized_agent()
+                    agent_getting = model.get_node(pair[1]).get_authorized_agent()
+
+                    if agent_setting.id != agent_getting.id:
+                        shared_resources.append((node_id, pair, (agent_setting.id, agent_getting.id)))
+        
+        return shared_resources
