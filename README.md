@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 You also need to add the project directory or submodule directory to your PYTHONPATH. This can be done manually as seen [here](https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html). Most IDEs should also support project-based PYTHONPATH additions through environments or launch configurations, which is a good practice if you wish to keep PYTHONPATH uncluttered. The easier way is to run this line in your main directory before running your script.py: 
 ```
-PYTHONPATH="$PWD/libs/jsat"
+export PYTHONPATH="$PWD/libs/jsat"
 ```
 
 ## Usage
