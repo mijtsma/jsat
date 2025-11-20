@@ -1,0 +1,63 @@
+\documentclass{standalone}
+\usepackage{tikz-network}
+\begin{document}
+\begin{tikzpicture}[multilayer=3d]
+\SetPlaneWidth{5}
+\SetPlaneHeight{3}
+\SetLayerDistance{-3}
+\SetVertexStyle[FillColor=white]\Plane[layer=4]
+\Text[layer=4,position=above right,rotation=90]{BaseEnvironmentResource}
+\Plane[layer=3]
+\Text[layer=3,position=above right,rotation=90]{DistributedWorkFunction}
+\Plane[layer=2]
+\Text[layer=2,position=above right,rotation=90]{CoordinationGroundingResource}
+\Plane[layer=1]
+\Text[layer=1,position=above right,rotation=90]{SynchronyFunction}
+\Vertex[x=3.365,y=0.3,size=0.3,label=ToolFetching,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={153,153,255}]{ToolFetching}
+\Vertex[x=4.7,y=0.539,size=0.3,label=IngredientUnpacking,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={153,153,255}]{IngredientUnpacking}
+\Vertex[x=2.208,y=1.593,size=0.3,label=IngredientPreparing,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={255,153,153}]{IngredientPreparing}
+\Vertex[x=2.814,y=0.891,size=0.3,label=HeatAdjusting,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={255,153,153}]{HeatAdjusting}
+\Vertex[x=1.326,y=1.946,size=0.3,label=IngredientCombining,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={255,153,153}]{IngredientCombining}
+\Vertex[x=0.3,y=2.7,size=0.3,label=ItemsMoving,fontsize=\tiny,layer=3,shape=rectangle,RGB,color={153,153,255}]{ItemsMoving}
+\Vertex[x=3.515,y=0.3,size=0.3,label=Asking for tool,fontsize=\tiny,layer=1,shape=rectangle,RGB,color={255,153,153}]{Asking for tool}
+\Vertex[x=4.7,y=0.732,size=0.3,label=Asking for ingredient,fontsize=\tiny,layer=1,shape=rectangle,RGB,color={255,153,153}]{Asking for ingredient}
+\Vertex[x=0.3,y=2.7,size=0.3,label=Directing items,fontsize=\tiny,layer=1,shape=rectangle,RGB,color={255,153,153}]{Directing items}
+\Vertex[x=3.477,y=0.3,size=0.3,label=Tool,fontsize=\tiny,layer=4,]{Tool}
+\Vertex[x=4.7,y=0.311,size=0.3,label=Ingredient,fontsize=\tiny,layer=4,]{Ingredient}
+\Vertex[x=2.247,y=1.073,size=0.3,label=PreparedIngredients,fontsize=\tiny,layer=4,]{PreparedIngredients}
+\Vertex[x=2.519,y=0.962,size=0.3,label=StoveHeatAdjusted,fontsize=\tiny,layer=4,]{StoveHeatAdjusted}
+\Vertex[x=1.309,y=1.828,size=0.3,label=IngredientsCombined,fontsize=\tiny,layer=4,]{IngredientsCombined}
+\Vertex[x=0.3,y=2.7,size=0.3,label=MovedObject,fontsize=\tiny,layer=4,]{MovedObject}
+\Vertex[x=3.407,y=0.3,size=0.3,label=Tool Request,fontsize=\tiny,layer=2,]{Tool Request}
+\Vertex[x=4.7,y=0.631,size=0.3,label=Ingredient Request,fontsize=\tiny,layer=2,]{Ingredient Request}
+\Vertex[x=0.3,y=2.7,size=0.3,label=Item Direction,fontsize=\tiny,layer=2,]{Item Direction}
+\Edge[Direct,lw=0.5pt](ToolFetching)(Tool)
+\Edge[Direct,lw=0.5pt](IngredientUnpacking)(Ingredient)
+\Edge[Direct,lw=0.5pt](IngredientPreparing)(PreparedIngredients)
+\Edge[Direct,lw=0.5pt](HeatAdjusting)(StoveHeatAdjusted)
+\Edge[Direct,lw=0.5pt](IngredientCombining)(IngredientsCombined)
+\Edge[Direct,lw=0.5pt](ItemsMoving)(MovedObject)
+\Edge[Direct,lw=0.5pt](Asking for tool)(Tool Request)
+\Edge[Direct,lw=0.5pt](Asking for ingredient)(Ingredient Request)
+\Edge[Direct,lw=0.5pt](Directing items)(Item Direction)
+\Edge[Direct,lw=0.5pt](Tool)(IngredientPreparing)
+\Edge[Direct,lw=0.5pt](Tool)(IngredientCombining)
+\Edge[Direct,lw=0.5pt](Tool)(Asking for tool)
+\Edge[Direct,lw=0.5pt](Ingredient)(IngredientPreparing)
+\Edge[Direct,lw=0.5pt](Ingredient)(Asking for ingredient)
+\Edge[Direct,lw=0.5pt](PreparedIngredients)(IngredientCombining)
+\Edge[Direct,lw=0.5pt](StoveHeatAdjusted)(IngredientCombining)
+\Edge[Direct,lw=0.5pt](IngredientsCombined)(ItemsMoving)
+\Edge[Direct,lw=0.5pt](Tool Request)(ToolFetching)
+\Edge[Direct,lw=0.5pt](Ingredient Request)(IngredientUnpacking)
+\Edge[Direct,lw=0.5pt](Item Direction)(ItemsMoving)
+\Vertex[x=0.45,y=-9.6,size=0.3,shape=rectangle,RGB,color={255,153,153},label=Cook,position=0]{agent1}
+\Vertex[x=0.45,y=-10.05,size=0.3,shape=rectangle,RGB,color={153,153,255},label=Assistant,position=0]{agent2}
+\Vertex[x=0,y=-10.5,size=0]{e11}
+\Vertex[x=0.9,y=-10.5,size=0,label=Organizational Dependancy,position=0]{e12}
+\Edge[Direct,lw=0.5pt,style={dashed}](e11)(e12)
+\Vertex[x=0,y=-10.95,size=0]{e21}
+\Vertex[x=0.9,y=-10.95,size=0,label=Action Means-End Relationship,position=0]{e22}
+\Edge[Direct,lw=0.5pt](e21)(e22)
+\end{tikzpicture}
+\end{document}

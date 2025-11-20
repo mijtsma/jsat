@@ -1,0 +1,229 @@
+{
+    "GraphData": {
+        "Nodes": {
+            "GoalReevaluation": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "GoalReevaluation"
+            },
+            "RobotPathPlanning": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "RobotPathPlanning"
+            },
+            "ImageryCapture": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ImageryCapture"
+            },
+            "LocationAttAssessment": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "LocationAttAssessment"
+            },
+            "ObstacleLocalization": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ObstacleLocalization"
+            },
+            "SelectPointsOfInterest": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "SelectPointsOfInterest"
+            },
+            "EvaluatePointsOfInterest": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "EvaluatePointsOfInterest"
+            },
+            "RankPointsOfInterest": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "RankPointsOfInterest"
+            },
+            "MapPointsOfInterest": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "MapPointsOfInterest"
+            },
+            "MapNavigationPlanning": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "MapNavigationPlanning"
+            },
+            "PointOfInterest": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PointOfInterest"
+            },
+            "GoalLocation": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "GoalLocation"
+            },
+            "PathPlanned": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PathPlanned"
+            },
+            "POIsStored": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "POIsStored"
+            },
+            "EvaluatedPointsOfInterest": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "EvaluatedPointsOfInterest"
+            },
+            "PriorityList": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PriorityList"
+            },
+            "AnnotatedMap": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "AnnotatedMap"
+            }
+        },
+        "Edges": [
+            {
+                "Source": "LocationAttAssessment",
+                "Target": "PointOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "ObstacleLocalization",
+                "Target": "PointOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PointOfInterest",
+                "Target": "GoalReevaluation",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GoalReevaluation",
+                "Target": "GoalLocation",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GoalLocation",
+                "Target": "RobotPathPlanning",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "RobotPathPlanning",
+                "Target": "PathPlanned",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PathPlanned",
+                "Target": "ImageryCapture",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "ImageryCapture",
+                "Target": "PointOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PointOfInterest",
+                "Target": "SelectPointsOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "SelectPointsOfInterest",
+                "Target": "POIsStored",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "POIsStored",
+                "Target": "EvaluatePointsOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "EvaluatePointsOfInterest",
+                "Target": "EvaluatedPointsOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "EvaluatedPointsOfInterest",
+                "Target": "RankPointsOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "RankPointsOfInterest",
+                "Target": "PriorityList",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PriorityList",
+                "Target": "MapPointsOfInterest",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "MapPointsOfInterest",
+                "Target": "AnnotatedMap",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "AnnotatedMap",
+                "Target": "MapNavigationPlanning",
+                "UserData": {
+                    "QOS": ""
+                }
+            }
+        ],
+        "Agents": {
+            "HumanRobotTeam": {
+                "Authority": [
+                    "GoalReevaluation",
+                    "RobotPathPlanning",
+                    "ImageryCapture",
+                    "LocationAttAssessment",
+                    "ObstacleLocalization",
+                    "SelectPointsOfInterest",
+                    "EvaluatePointsOfInterest",
+                    "RankPointsOfInterest"
+                ],
+                "Responsibility": [
+                    "GoalReevaluation",
+                    "RobotPathPlanning",
+                    "ImageryCapture",
+                    "LocationAttAssessment",
+                    "ObstacleLocalization",
+                    "SelectPointsOfInterest",
+                    "EvaluatePointsOfInterest",
+                    "RankPointsOfInterest"
+                ]
+            },
+            "SearchTeam": {
+                "Authority": [
+                    "MapPointsOfInterest",
+                    "MapNavigationPlanning"
+                ],
+                "Responsibility": [
+                    "MapPointsOfInterest",
+                    "MapNavigationPlanning"
+                ]
+            }
+        }
+    }
+}

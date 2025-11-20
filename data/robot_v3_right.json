@@ -1,0 +1,163 @@
+{
+  "GraphData": {
+    "Nodes": {
+      "GoalReevaluation": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "GoalReevaluation"
+      },
+      "RobotPathPlanning": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "RobotPathPlanning"
+      },
+      "EvaluatePlannedPath": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "EvaluatePlannedPath"
+      },
+      "PathRedirecting": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "PathRedirecting"
+      },
+      "ImageryCapture": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "ImageryCapture"
+      },
+      "MonitoringVideo": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "MonitoringVideo"
+      },
+      "EvaluatingVideoFeed": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "EvaluatingVideoFeed"
+      },
+      "PointofInterest": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "PointofInterest"
+      },
+      "GoalLocation": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "GoalLocation"
+      },
+      "PlannedPath": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "PlannedPath"
+      },
+      "EvaluatedPath": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "EvaluatedPath"
+      },
+      "VideoFeed": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "VideoFeed"
+      },
+      "MonitoringVideoFeed": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "MonitoringVideoFeed"
+      }
+    },
+    "Edges": [
+      {
+        "Source": "PointofInterest",
+        "Target": "GoalReevaluation",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "GoalReevaluation",
+        "Target": "GoalLocation",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "GoalLocation",
+        "Target": "RobotPathPlanning",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "RobotPathPlanning",
+        "Target": "PlannedPath",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "PlannedPath",
+        "Target": "EvaluatePlannedPath",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "EvaluatePlannedPath",
+        "Target": "EvaluatedPath",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "EvaluatedPath",
+        "Target": "PathRedirecting",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "PathRedirecting",
+        "Target": "PlannedPath",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "PlannedPath",
+        "Target": "ImageryCapture",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "ImageryCapture",
+        "Target": "PointofInterest",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "ImageryCapture",
+        "Target": "VideoFeed",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "VideoFeed",
+        "Target": "MonitoringVideo",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "MonitoringVideo",
+        "Target": "MonitoringVideoFeed",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "MonitoringVideoFeed",
+        "Target": "EvaluatingVideoFeed",
+        "UserData": { "QOS": "" }
+      },
+      {
+        "Source": "EvaluatingVideoFeed",
+        "Target": "PointofInterest",
+        "UserData": { "QOS": "" }
+      }
+    ],
+    "Agents": {
+      "SearchTeam": {
+        "Authority": [
+          "GoalReevaluation",
+          "MonitoringVideo",
+          "EvaluatingVideoFeed",
+          "EvaluatePlannedPath",
+          "PathRedirecting"
+        ],
+        "Responsibility": [
+          "GoalReevaluation",
+          "MonitoringVideo",
+          "EvaluatingVideoFeed",
+          "EvaluatePlannedPath",
+          "PathRedirecting"
+        ]
+      },
+      "HumanRobotTeam": {
+        "Authority": [
+          "RobotPathPlanning",
+          "ImageryCapture"
+        ],
+        "Responsibility": [
+          "RobotPathPlanning",
+          "ImageryCapture"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+    "GraphData": {
+        "Nodes": {
+            "ToolFetching": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ToolFetching"
+            },
+            "IngredientUnpacking": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientUnpacking"
+            },
+            "IngredientPreparing": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientPreparing"
+            },
+            "HeatAdjusting": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "HeatAdjusting"
+            },
+            "IngredientCombining": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientCombining"
+            },
+            "ItemsMoving": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ItemsMoving"
+            },
+
+            "Asking for tool": {
+                "Type": "SynchronyFunction",
+                "UserData": "Asking for tool"
+            },
+            "Asking for ingredient": {
+                "Type": "SynchronyFunction",
+                "UserData": "Asking for ingredient"
+            },
+            "Directing items": {
+                "Type": "SynchronyFunction",
+                "UserData": "Directing items"
+            },
+
+            "Tool": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "Tool"
+            },
+            "Ingredient": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "Ingredient"
+            },
+            "PreparedIngredients": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PreparedIngredients"
+            },
+            "StoveHeatAdjusted": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "StoveHeatAdjusted"
+            },
+            "IngredientsCombined": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "IngredientsCombined"
+            },
+            "MovedObject": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "MovedObject"
+            },
+
+            "Tool Request": {
+                "Type": "CoordinationGroundingResource",
+                "UserData": "Tool Request"
+            },
+            "Ingredient Request": {
+                "Type": "CoordinationGroundingResource",
+                "UserData": "Ingredient Request"
+            },
+            "Item Direction": {
+                "Type": "CoordinationGroundingResource",
+                "UserData": "Item Direction"
+            }
+        },
+
+        "Edges": [
+            {"Source": "ToolFetching", "Target": "Tool", "UserData": {"QOS": ""}},
+            {"Source": "Tool", "Target": "IngredientPreparing", "UserData": {"QOS": ""}},
+            {"Source": "Tool", "Target": "IngredientCombining", "UserData": {"QOS": ""}},
+            {"Source": "IngredientUnpacking", "Target": "Ingredient", "UserData": {"QOS": ""}},
+            {"Source": "Ingredient", "Target": "IngredientPreparing", "UserData": {"QOS": ""}},
+            {"Source": "IngredientPreparing", "Target": "PreparedIngredients", "UserData": {"QOS": ""}},
+            {"Source": "PreparedIngredients", "Target": "IngredientCombining", "UserData": {"QOS": ""}},
+            {"Source": "HeatAdjusting", "Target": "StoveHeatAdjusted", "UserData": {"QOS": ""}},
+            {"Source": "StoveHeatAdjusted", "Target": "IngredientCombining", "UserData": {"QOS": ""}},
+            {"Source": "IngredientCombining", "Target": "IngredientsCombined", "UserData": {"QOS": ""}},
+            {"Source": "IngredientsCombined", "Target": "ItemsMoving", "UserData": {"QOS": ""}},
+            {"Source": "ItemsMoving", "Target": "MovedObject", "UserData": {"QOS": ""}},
+
+        
+            {"Source": "Asking for tool", "Target": "Tool Request", "UserData": {"QOS": ""}},
+            {"Source": "Tool Request", "Target": "ToolFetching", "UserData": {"QOS": ""}},
+            
+   
+            {"Source": "Asking for ingredient", "Target": "Ingredient Request", "UserData": {"QOS": ""}},
+            {"Source": "Ingredient Request", "Target": "IngredientUnpacking", "UserData": {"QOS": ""}},
+            
+            {"Source": "Tool", "Target": "Asking for tool", "UserData": {"QOS": ""}},
+            {"Source": "Ingredient", "Target": "Asking for ingredient", "UserData": {"QOS": ""}},
+
+            {"Source": "Directing items", "Target": "Item Direction", "UserData": {"QOS": ""}},
+            {"Source": "Item Direction", "Target": "ItemsMoving", "UserData": {"QOS": ""}}
+        ],
+
+        "Agents": {
+            "Cook": {
+                "Authority": []
+            },
+            "Assistant": {
+                "Authority": []
+            }
+        }
+    }
+}

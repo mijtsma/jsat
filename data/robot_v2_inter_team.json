@@ -1,0 +1,151 @@
+{
+    "GraphData": {
+        "Nodes": {
+            "VS": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "VictimSearching"
+            },
+            "VR": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "VideoRecording"
+            },
+            "RPP": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "RobotPathPlanning"
+            },
+            "CFR": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "CreateFlightRestrictions"
+            },
+            "GG": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "GoalGeneration"
+            },
+            "PF": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "PlanFormulation"
+            },
+            "SA": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "SearchedArea"
+            },
+            "IMG": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "Imagery"
+            },
+            "NG": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "NewGoal"
+            },
+            "PLAN": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "CommandPlan"
+            },
+            "TFR": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "TemporaryFlightRestriction"
+            }
+        },
+        "Edges": [
+            {
+                "Source": "VS",
+                "Target": "SA",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "SA",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "SA",
+                "Target": "PF",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PF",
+                "Target": "PLAN",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "VR",
+                "Target": "IMG",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IMG",
+                "Target": "VS",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PLAN",
+                "Target": "CFR",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "CFR",
+                "Target": "TFR",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "TFR",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PLAN",
+                "Target": "GG",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "GG",
+                "Target": "NG",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "NG",
+                "Target": "RPP",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "NG",
+                "Target": "VS",
+                "UserData": {
+                    "QOS": ""
+                }
+            }
+        ],
+        "Agents": {
+            "Operator": {
+                "Authority": []
+            },
+            "Robot": {
+                "Authority": []
+            }
+        }
+    }
+}

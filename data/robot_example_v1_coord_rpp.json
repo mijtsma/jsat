@@ -1,0 +1,210 @@
+{
+  "GraphData": {
+    "Nodes": {
+      "GL": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "GoalLocation"
+      },
+      "PP": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "PathPlanned"
+      },
+      "POI": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "PointOfInterest"
+      },
+      "OPOI": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "ObservedPOI"
+      },
+      "OPP": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "ObservedPathPlan"
+      },
+      "PPED": {
+        "Type": "BaseEnvironmentResource",
+        "UserData": "PathPlanEvaluationData"
+      },
+      "LAA": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "LocationAttAssessment"
+      },
+      "OLL": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "ObstacleLocalization"
+      },
+      "REV": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "GoalReevaluation"
+      },
+      "RPP": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "RobotPathPlanning"
+      },
+      "IC": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "ImageryCapture"
+      },
+      "NWS": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "NextWaypointSelection"
+      },
+      "MPOI": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "MonitorPointOfInterest"
+      },
+      "MPP": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "MonitorPathPlanning"
+      },
+      "PPE": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "PathPlanningEvaluation"
+      },
+      "RD": {
+        "Type": "DistributedWorkFunction",
+        "UserData": "RedirectPathPlanning"
+      }
+    },
+    "Edges": [
+      {
+        "Source": "LAA",
+        "Target": "POI",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "OLL",
+        "Target": "POI",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "POI",
+        "Target": "REV",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "REV",
+        "Target": "GL",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "GL",
+        "Target": "NWS",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "GL",
+        "Target": "RPP",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "RPP",
+        "Target": "PP",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "PP",
+        "Target": "IC",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "IC",
+        "Target": "POI",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "POI",
+        "Target": "MPOI",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "MPOI",
+        "Target": "OPOI",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "PP",
+        "Target": "MPP",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "MPP",
+        "Target": "OPP",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "OPP",
+        "Target": "PPE",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "PPE",
+        "Target": "PPED",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "PPED",
+        "Target": "RD",
+        "UserData": {
+          "QOS": ""
+        }
+      },
+      {
+        "Source": "RD",
+        "Target": "PP",
+        "UserData": {
+          "QOS": ""
+        }
+      }
+    ],
+    "Agents": {
+      "Operator": {
+        "Authority": []
+      },
+      "Robot": {
+        "Authority": [
+          "LAA",
+          "OLL",
+          "REV",
+          "RPP",
+          "IC",
+          "NWS",
+          "MPOI",
+          "MPP",
+          "PPE",
+          "RD"
+        ]
+      }
+    }
+  }
+}

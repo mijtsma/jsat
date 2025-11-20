@@ -1,8 +1,14 @@
+import sys
+import os
+
+# Add the project root to Python's module search path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 from core import networkdata as nd
 from core.parsing.jsonparser import JSONParser
 from core.parsing.jsonencoder import JSONEncoder
 from cytoapp.cytoscapeapp import CytoscapeApp
-from roverdatahandler import RoverDataHandler
+from userapps.robot_example.roverdatahandler import RoverDataHandler
 import itertools
 import copy
 import webbrowser
@@ -17,7 +23,7 @@ directory: str = "data/"
 ''' The JSON files in the given folder
 '''
 data_sets: list[str] = [
-    "robot_example",
+    "robot_v2_inter_team",
 ]
 
 # Class for user data
@@ -49,32 +55,66 @@ for name in data_sets:
     data_dict[name] = JSONParser.parse(directory + name + ".json", e_user_data_func = custom_user_parse)
 
 # Main network
-main_net = data_dict["robot_example"]
+main_net = data_dict["robot_v2_inter_team"]
 
+# Define Agents
+incident_command = nd.Agent("IncidentCommand")
+human_robot_team = nd.Agent("HumanRobotTeam")
+search_team = nd.Agent("SearchTeam")
+
+# Assign nodes to agents
+agent_assignments = {
+    #"SearchTeam": ["OLL", "LAA", "MPOI", "MPP", "IC", "PPE", "RD", "RPP", "NWS"]
+    "IncidentCommand": ["GG", "CFR", "PF"],
+    "HumanRobotTeam": ["VR", "RPP"],
+    "SearchTeam": ["PF", "VS"]
+}
+
+# Map agent names to actual agent objects
+agent_lookup = {
+    "IncidentCommand": incident_command,
+    "HumanRobotTeam": human_robot_team,
+    "SearchTeam": search_team
+}
+
+# Assign authority and responsibility
+for agent_name, node_list in agent_assignments.items():
+    agent = agent_lookup[agent_name]
+    for node_id in node_list:
+        try:
+            node = main_net.get_node(node_id)
+            agent.add_action(node, agent.allocation_types.Authority)
+            agent.add_action(node, agent.allocation_types.Responsibility)
+        except Exception as e:
+            print(f"Warning: Could not assign {node_id} to {agent_name} — {e}")
+
+
+# operator = nd.Agent("Operator")
+# rover = nd.Agent("Robot")
 # Define roles for both human and operator (is there a way to do this through the JSON?)
-operator: nd.Agent = nd.Agent("Operator")
-rover: nd.Agent = nd.Agent("Robot")
+# operator: nd.Agent = nd.Agent("Operator")
+# rover: nd.Agent = nd.Agent("Robot")
 
-operator.add_action(main_net.get_node("LAA"), operator.allocation_types.Authority)
-operator.add_action(main_net.get_node("OLL"), operator.allocation_types.Authority)
-operator.add_action(main_net.get_node("CAM"), operator.allocation_types.Authority)
-operator.add_action(main_net.get_node("REV"), operator.allocation_types.Authority)
-# Obstacle size estimation?
+# operator.add_action(main_net.get_node("LAA"), operator.allocation_types.Authority)
+# operator.add_action(main_net.get_node("OLL"), operator.allocation_types.Authority)
+# operator.add_action(main_net.get_node("CAM"), operator.allocation_types.Authority)
+# operator.add_action(main_net.get_node("REV"), operator.allocation_types.Authority)
+# # Obstacle size estimation?
 
-rover.add_action(main_net.get_node("BLM"), rover.allocation_types.Authority)
-rover.add_action(main_net.get_node("TMP"), rover.allocation_types.Authority)
-rover.add_action(main_net.get_node("RPP"), rover.allocation_types.Authority)
-rover.add_action(main_net.get_node("NWS"), rover.allocation_types.Authority)
-rover.add_action(main_net.get_node("IC"), rover.allocation_types.Authority)
-rover.add_action(main_net.get_node("RM"), rover.allocation_types.Authority) # Remove this function?
+# rover.add_action(main_net.get_node("BLM"), rover.allocation_types.Authority)
+# rover.add_action(main_net.get_node("TMP"), rover.allocation_types.Authority)
+# rover.add_action(main_net.get_node("RPP"), rover.allocation_types.Authority)
+# rover.add_action(main_net.get_node("NWS"), rover.allocation_types.Authority)
+# rover.add_action(main_net.get_node("IC"), rover.allocation_types.Authority)
+# rover.add_action(main_net.get_node("RM"), rover.allocation_types.Authority) # Remove this function?
 
-# Responsibility
-operator.add_action(main_net.get_node("BLM"), operator.allocation_types.Responsibility)
-operator.add_action(main_net.get_node("TMP"), operator.allocation_types.Responsibility)
-operator.add_action(main_net.get_node("RPP"), operator.allocation_types.Responsibility)
-operator.add_action(main_net.get_node("NWS"), operator.allocation_types.Responsibility)
-operator.add_action(main_net.get_node("IC"), operator.allocation_types.Responsibility)
-operator.add_action(main_net.get_node("RM"), operator.allocation_types.Responsibility) # Remove this function?
+# # Responsibility
+# operator.add_action(main_net.get_node("BLM"), operator.allocation_types.Responsibility)
+# operator.add_action(main_net.get_node("TMP"), operator.allocation_types.Responsibility)
+# operator.add_action(main_net.get_node("RPP"), operator.allocation_types.Responsibility)
+# operator.add_action(main_net.get_node("NWS"), operator.allocation_types.Responsibility)
+# operator.add_action(main_net.get_node("IC"), operator.allocation_types.Responsibility)
+# operator.add_action(main_net.get_node("RM"), operator.allocation_types.Responsibility) # Remove this function?
 
 
 # You can identify what resources are shared between agents as a way to identify interdependencies between agents that
@@ -126,43 +166,43 @@ for node_id in main_net.get_graph().nodes():
         # responsible_agent = node.get_responsible_agent()
 
         # For each pair, check whether roles is the same
-        if authorized_agent != operator:
+        if authorized_agent.id != "IncidentCommand":
             functions_w_auth_resp_mismatch.append(node_id)
 
 # For each function with an authority-responsibility mismatch, do something!
 # Current rule: When authority-responsibility mismatch, create a confirmation resources and a confirmation
 # function that is allocated to the operator
-for node_id in functions_w_auth_resp_mismatch:
+# for node_id in functions_w_auth_resp_mismatch:
 
-    if node_id == "RM":
-        continue
+#     if node_id == "RM":
+#         continue
 
-    # Create a coordination resource and a teamwork function node
-    soc_org_node = main_net.add_node(nd.CoordinationGroundingResource("Confirmation-"+node_id)) # TODO: Specify the node type/class
-    main_net.get_node("Confirmation-"+node_id).user_data = "Confirmation-"+node_id # Need to fill these for WMC parsing
-    teamwork_node = main_net.add_node(nd.SynchronyFunction("Confirming-"+node_id))
-    main_net.get_node("Confirming-"+node_id).user_data = "Confirming-"+node_id # Need to fill these for WMC parsing
+#     # Create a coordination resource and a teamwork function node
+#     soc_org_node = main_net.add_node(nd.CoordinationGroundingResource("Confirmation-"+node_id)) # TODO: Specify the node type/class
+#     main_net.get_node("Confirmation-"+node_id).user_data = "Confirmation-"+node_id # Need to fill these for WMC parsing
+#     teamwork_node = main_net.add_node(nd.SynchronyFunction("Confirming-"+node_id))
+#     main_net.get_node("Confirming-"+node_id).user_data = "Confirming-"+node_id # Need to fill these for WMC parsing
 
-    # Add edge going from teamwork node to coordination resource
-    main_net.add_edge("Confirming-"+node_id,"Confirmation-"+node_id)
-    main_net.get_edge("Confirming-"+node_id,"Confirmation-"+node_id).user_data = UserData(100000)
+#     # Add edge going from teamwork node to coordination resource
+#     main_net.add_edge("Confirming-"+node_id,"Confirmation-"+node_id)
+#     main_net.get_edge("Confirming-"+node_id,"Confirmation-"+node_id).user_data = UserData(100000)
 
-    # Add edges going from coordination resource to original node
-    main_net.add_edge("Confirmation-"+node_id,node_id)
+#     # Add edges going from coordination resource to original node
+#     main_net.add_edge("Confirmation-"+node_id,node_id)
 
-    # Add edge going from work domain resources set by shared action to teamwork node
-    for wd_resource in main_net.get_graph().successors(node_id):
-        main_net.add_edge(wd_resource,"Confirming-"+node_id)
+#     # Add edge going from work domain resources set by shared action to teamwork node
+#     for wd_resource in main_net.get_graph().successors(node_id):
+#         main_net.add_edge(wd_resource,"Confirming-"+node_id)
         
-        # Add QOS to each edge (making an assumption that this needs to updated always but can change!)
-        main_net.get_edge(wd_resource,"Confirming-"+node_id).user_data = UserData(1000000)
+#         # Add QOS to each edge (making an assumption that this needs to updated always but can change!)
+#         main_net.get_edge(wd_resource,"Confirming-"+node_id).user_data = UserData(1000000)
 
-    # Allocate authority and responsibility to human
-    operator.add_action(main_net.get_node("Confirming-"+node_id), operator.allocation_types.Authority)
-    operator.add_action(main_net.get_node("Confirming-"+node_id), operator.allocation_types.Responsibility)
+#     # Allocate authority and responsibility to human
+#     operator.add_action(main_net.get_node("Confirming-"+node_id), operator.allocation_types.Authority)
+#     operator.add_action(main_net.get_node("Confirming-"+node_id), operator.allocation_types.Responsibility)
 
-    # Add QOS to each edge (making an assumption that this needs to updated always but can change!)
-    main_net.get_edge("Confirmation-"+node_id,node_id).user_data = UserData(0)
+#     # Add QOS to each edge (making an assumption that this needs to updated always but can change!)
+#     main_net.get_edge("Confirmation-"+node_id,node_id).user_data = UserData(0)
 
 
 # We want to write this new graph to an output JSON file.
@@ -196,3 +236,4 @@ app = CytoscapeApp(data_dict, RoverDataHandler)
 #                                                    ("Confirmation-TMP","TMP")])
 webbrowser.open_new("http://127.0.0.1:8050")
 app.run()
+

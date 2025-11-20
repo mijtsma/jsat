@@ -1,0 +1,150 @@
+{
+    "GraphData": {
+        "Nodes": {
+            "ToolFetching": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ToolFetching"
+            },
+            "IngredientUnpacking": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientUnpacking"
+            },
+            "IngredientPreparing": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientPreparing"
+            },
+            "HeatAdjusting": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "HeatAdjusting"
+            },
+            "IngredientCombining": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "IngredientCombining"
+            },
+            "ItemsMoving": {
+                "Type": "DistributedWorkFunction",
+                "UserData": "ItemsMoving"
+            },
+            "ToolsReady": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "ToolsReady"
+            },
+            "IngredientsUnpacked": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "IngredientsUnpacked"
+            },
+            "PreparedIngredients": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "PreparedIngredients"
+            },
+            "StoveHeatAdjusted": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "StoveHeatAdjusted"
+            },
+            "IngredientsCombined": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "IngredientsCombined"
+            },
+            "MovedObject": {
+                "Type": "BaseEnvironmentResource",
+                "UserData": "MovedObject"
+            }
+        },
+
+        "Edges": [
+            {
+                "Source": "ToolFetching",
+                "Target": "ToolsReady",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "ToolsReady",
+                "Target": "IngredientPreparing",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "ToolsReady",
+                "Target": "IngredientCombining",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IngredientUnpacking",
+                "Target": "IngredientsUnpacked",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IngredientsUnpacked",
+                "Target": "IngredientPreparing",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IngredientPreparing",
+                "Target": "PreparedIngredients",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "PreparedIngredients",
+                "Target": "IngredientCombining",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "HeatAdjusting",
+                "Target": "StoveHeatAdjusted",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "StoveHeatAdjusted",
+                "Target": "IngredientCombining",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IngredientCombining",
+                "Target": "IngredientsCombined",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "IngredientsCombined",
+                "Target": "ItemsMoving",
+                "UserData": {
+                    "QOS": ""
+                }
+            },
+            {
+                "Source": "ItemsMoving",
+                "Target": "MovedObject",
+                "UserData": {
+                    "QOS": ""
+                }
+            }
+        ],
+
+        "Agents": {
+            "Cook": {
+                "Authority": []
+            },
+            "Assistant": {
+                "Authority": []
+            }
+        }
+    }
+}

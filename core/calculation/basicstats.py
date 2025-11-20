@@ -4,6 +4,8 @@ from typing import Tuple, Type
 import core.networkdata as nd
 from .eagle import EagleModularity
 
+from collections import defaultdict
+
 class BasicStats:
     ''' A class for calculating various simple statistics of a NetworkModel.
     '''
@@ -130,23 +132,19 @@ class BasicStats:
                 layers[node_type] = [node_id]
         return nx.community.modularity(model.get_graph(), layers.values())
 
+    from collections import defaultdict
+
     @staticmethod
     def allocation_modularity(model: nd.NetworkModel, alloc_type) -> float:
-        ''' Returns the modularity of the given model with partitions
-            based on the specified allocation type.
-        '''
-        communities: dict[str, list[str]] = {}
-        for agent_id in model.agents:
-            communities[agent_id] = []
-        non_allocated_actions: list[str] = []
-        non_actions: list[str] = []
+        communities = defaultdict(list)
+        non_allocated_actions = []
+        non_actions = []
         for node_id in model.get_node_ids():
             node = model.get_node(node_id)
-            if (not isinstance(node, nd.ActionNode)):
+            if not isinstance(node, nd.ActionNode):
                 non_actions.append(node_id)
                 continue
-            if(alloc_type not in node.agents or 
-            len(node.agents[alloc_type]) == 0):
+            if alloc_type not in node.agents or len(node.agents[alloc_type]) == 0:
                 non_allocated_actions.append(node_id)
                 continue
             for agent_id in node.agents[alloc_type]:
@@ -154,11 +152,8 @@ class BasicStats:
         result = list(communities.values())
         result.append(non_allocated_actions)
         result.append(non_actions)
-        return EagleModularity.eagle_modularity(
-            model.get_graph(), 
-            result
-        )
-    
+        return EagleModularity.eagle_modularity(model.get_graph(), result)
+
     @staticmethod
     def number_of_functions_per_agent(model: nd.NetworkModel, alloc_type) -> list[frozenset[str]]:
         ''' Finds the number of functions that each agent is assigned
