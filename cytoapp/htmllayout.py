@@ -52,7 +52,7 @@ class HTMLLayout:
                     id = 'layout-dropdown',
                     options = [
                         {'label': name.capitalize(), 'value': name}
-                        for name in ['dagre', 'cose-bilkent', 'concentric']
+                        for name in ['dagre', 'cose-bilkent', 'concentric', 'preset', 'grid', 'cola', 'klay', 'spread', 'euler', 'breadthfirst']
                     ],
                     value = 'dagre',
                     clearable = False

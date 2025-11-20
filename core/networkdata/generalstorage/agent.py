@@ -60,7 +60,7 @@ class Agent:
 
     def get_actions(self, alloc_type) -> list:
         ''' Method which returns a list of all ActionNode IDs in the specified
-            categoty associated with this agent. Requires allocation type to
+            category associated with this agent. Requires allocation type to
             be in the enum provided at initialization.
         '''
         self.__check_alloc_in_enum(alloc_type)

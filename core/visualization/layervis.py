@@ -117,32 +117,45 @@ class LayeredVisualizer:
         elements: list[dict], 
         stylesheet: list[dict],
         agent_groups: list[str],
-        agent_styles: list[str]
+        agent_styles: list[str],
+        alloc_type = 1
     ):
-        node_agent = node.get_authorized_agent()
-        agent_group_id = node_agent.id + node.__class__.__name__
+        # node_agent = node.get_authorized_agent()
+        node_agent_id = ""
+        agent_group_label = ""
+        for agent_id in node.agents[alloc_type]:
+            if node_agent_id == "":
+                node_agent_id = agent_id
+                agent_group_label = agent_id
+            else:
+                node_agent_id = node_agent_id + "_and_" + agent_id
+                agent_group_label = agent_group_label + " and " + agent_id
+        if node_agent_id == "":
+            node_agent_id = "None"
+            agent_group_label = "None"
+        agent_group_id = node_agent_id + node.__class__.__name__
         element['data']['parent'] = agent_group_id
         if agent_group_id in agent_groups:
             return
         agent_group_data = {}
         agent_group_data['id'] = agent_group_id
-        agent_group_data['label'] = node_agent.id
+        agent_group_data['label'] = node_agent_id
         agent_group_data['parent'] = node.__class__.__name__
         agent_group = {}
         agent_group['data'] = agent_group_data
-        agent_group['classes'] = node_agent.id
+        agent_group['classes'] = node_agent_id
         elements.append(agent_group)
         agent_groups.append(agent_group_id)
-        if node_agent.id in agent_styles:
+        if node_agent_id in agent_styles:
             return
         style = {}
         style['background-opacity'] = LayeredVisualizer.__agent_bg_opacity
-        style['background-color'] = cg.get_color(node_agent.id)
+        style['background-color'] = cg.get_color(node_agent_id)
         style_element = {}
-        style_element['selector'] = "."+node_agent.id
+        style_element['selector'] = "."+node_agent_id
         style_element['style'] = style
         stylesheet.append(style_element)
-        agent_styles.append(node_agent.id)
+        agent_styles.append(node_agent_id)
         
     @staticmethod
     def __add_edges(model: nd.NetworkModel, elements: list[dict]):
