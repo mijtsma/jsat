@@ -16,7 +16,6 @@ from cytoapp.cytoscapeapp import CytoscapeApp
 from userapps.robot_example.roverdatahandler import RoverDataHandler
 from core.visualization.tikzlayer import LayeredTikzVisualizer as l
 
-
 # ================================ #
 #         Setup Python             #
 # ================================ #
